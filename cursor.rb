@@ -1,4 +1,4 @@
-require "io/console"
+require 'io/console'
 
 KEYMAP = {
   " " => :space,
@@ -37,6 +37,7 @@ class Cursor
   def initialize(cursor_pos, board)
     @cursor_pos = cursor_pos
     @board = board
+    @selected = false
   end
 
   def get_input
@@ -44,7 +45,13 @@ class Cursor
     handle_key(key)
   end
 
+  def selected?
+    selected
+  end
+
   private
+
+  attr_accessor :selected
 
   def read_char
     STDIN.echo = false
@@ -65,19 +72,26 @@ class Cursor
   def handle_key(key)
     case key
     when :space, :return
+      toggle_selected!
       cursor_pos
     when :left, :right, :up, :down
       update_pos(MOVES[key])
     when :ctrl_c
       Process.exit(0)
+    end
   end
 
   def update_pos(diff)
+    return if selected
     x, y = cursor_pos
     dx, dy = diff
     new_pos = [x + dx, y + dy]
     @cursor_pos = new_pos if board.in_bounds?(new_pos)
     nil
   end
-  
+
+  def toggle_selected!
+    self.selected = !selected
+  end
+
 end
