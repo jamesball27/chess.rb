@@ -16,7 +16,7 @@ class Display
       row = ""
       (0..7).each do |j|
         pos = [i, j]
-        piece = board[pos].to_s
+        piece = board[pos].to_s.colorize(background: background_color(pos))
         if pos == cursor.cursor_pos
           color = cursor.selected? ? :green : :yellow
           piece = piece.colorize(background: color)
@@ -34,4 +34,14 @@ class Display
       cursor.get_input
     end
   end
+
+  private
+  
+  def background_color(pos)
+    x, y = pos
+    (x.even? && y.even?) || (x.odd? && y.odd?) ? :white : :black
+  end
+
+
+
 end
