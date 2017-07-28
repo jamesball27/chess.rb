@@ -28,6 +28,10 @@ class Board
     grid
   end
 
+  def in_bounds?(pos)
+    pos.all? { |n| n.between?(0, 7) }
+  end
+
   protected
 
   def make_starting_grid
