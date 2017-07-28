@@ -43,7 +43,10 @@ end
 
 b = Board.new
 d = Display.new(b)
-loop do
-  d.render
-  d.cursor.get_input
-end
+d.render
+bishop = b[[6, 6]]
+p bishop.moves
+# loop do
+#   d.render
+#   d.cursor.get_input
+# end

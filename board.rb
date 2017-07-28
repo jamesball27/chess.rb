@@ -1,4 +1,5 @@
-require_relative 'piece'
+require_relative 'bishop'
+require_relative 'null'
 
 class Board
 
@@ -34,9 +35,16 @@ class Board
   protected
 
   def make_starting_grid
-    grid = Array.new(8) { Array.new(8) }
-    [0, 1, 6, 7].each do |i|
-      grid[i].map! { Piece.new }
+    null_piece = NullPiece.instance
+    grid = Array.new(8) { Array.new(8, null_piece) }
+    (0..7).each do |i|
+      (0..7).each do |j|
+        if [0, 1, 6, 7].include?(i)
+          grid[i][j] = Bishop.new([i, j], self)
+        else
+          grid[i][j] = null_piece
+        end
+      end
     end
     grid
   end
