@@ -19,7 +19,7 @@ class King < Piece
   end
 
   def symbol
-    "K"
+    "♚".colorize(color)
   end
 
 end

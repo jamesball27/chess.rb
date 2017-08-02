@@ -7,7 +7,7 @@ class Pawn < Piece
   end
 
   def symbol
-    "P"
+    "♟".colorize(color)
   end
 
   protected

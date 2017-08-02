@@ -19,7 +19,7 @@ class Knight < Piece
   end
 
   def symbol
-    "N"
+    "♞".colorize(color)
   end
 
 end

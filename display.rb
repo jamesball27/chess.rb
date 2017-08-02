@@ -30,7 +30,7 @@ class Display
 
   def background_color(pos)
     x, y = pos
-    color = (x.even? && y.even?) || (x.odd? && y.odd?) ? :white : :black
+    color = (x.even? && y.even?) || (x.odd? && y.odd?) ? :light_white : :light_black
 
     if pos == cursor.cursor_pos
       color = cursor.selected? ? :green : :yellow
