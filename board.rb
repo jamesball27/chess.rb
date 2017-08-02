@@ -1,4 +1,4 @@
-require_relative 'rook'
+require_relative 'knight'
 require_relative 'null'
 
 class Board
@@ -40,7 +40,7 @@ class Board
     (0..7).each do |i|
       (0..7).each do |j|
         if [0, 1, 6, 7].include?(i)
-          grid[i][j] = Rook.new([i, j], self)
+          grid[i][j] = Knight.new([i, j], self)
         else
           grid[i][j] = null_piece
         end
