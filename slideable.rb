@@ -28,7 +28,7 @@ module Slideable
     loop do
       new_pos = [x + dx, y + dy]
 
-      if board.in_bounds?(new_pos) && board[new_pos].empty?
+      if board.in_bounds?(new_pos) && board[new_pos].color != color
         moves << new_pos
         x, y = new_pos
       else
