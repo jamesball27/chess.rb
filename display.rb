@@ -44,7 +44,7 @@ end
 b = Board.new
 d = Display.new(b)
 d.render
-bishop = b[[6, 6]]
+bishop = b[[6, 3]]
 p bishop.moves
 # loop do
 #   d.render

@@ -1,8 +1,7 @@
 require 'byebug'
 module Slideable
 
-  HORIZONTAL_DELTAS = [[0, -1], [0, 1]]
-  VERTICAL_DELTAS = [[-1, 0], [1, 0]]
+  PERPENDICULAR_DELTAS = [[0, -1], [0, 1], [-1, 0], [1, 0]]
   DIAGONAL_DELTAS = [[-1, -1], [-1, 1], [1, -1], [1, 1]]
 
   def moves
@@ -15,12 +14,8 @@ module Slideable
 
   private
 
-  def horizontal_deltas
-    HORIZONTAL_DELTAS
-  end
-
-  def vertical_deltas
-    VERTICAL_DELTAS
+  def perpendicular_deltas
+    PERPENDICULAR_DELTAS
   end
 
   def diagonal_deltas
