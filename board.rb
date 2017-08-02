@@ -1,5 +1,4 @@
-require_relative 'knight'
-require_relative 'null'
+require_relative 'pieces'
 
 class Board
 
@@ -37,15 +36,23 @@ class Board
   def make_starting_grid
     null_piece = NullPiece.instance
     grid = Array.new(8) { Array.new(8, null_piece) }
-    (0..7).each do |i|
-      (0..7).each do |j|
-        if [0, 1, 6, 7].include?(i)
-          grid[i][j] = Knight.new([i, j], self)
-        else
-          grid[i][j] = null_piece
-        end
+
+    back_row = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
+
+    back_row.each_with_index do |piece, j|
+      [:white, :black].each do |color|
+        i = color == :white ? 7 : 0
+        grid[i][j] = piece.new([i, j], self, color)
       end
     end
+
+    [1, 6].each do |i|
+      color = i == 1 ? :black : :white
+      8.times do |j|
+        grid[i][j] = Pawn.new([i, j], self, color)
+      end
+    end
+    
     grid
   end
 
