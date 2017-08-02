@@ -5,7 +5,7 @@ class Board
   attr_reader :grid
 
   def initialize
-    @grid = make_starting_grid
+    make_starting_grid
   end
 
   def [](pos)
@@ -34,26 +34,24 @@ class Board
   protected
 
   def make_starting_grid
-    null_piece = NullPiece.instance
-    grid = Array.new(8) { Array.new(8, null_piece) }
+    @grid = Array.new(8) { Array.new(8, NullPiece.instance) }
 
-    back_row = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
-
-    back_row.each_with_index do |piece, j|
-      [:white, :black].each do |color|
-        i = color == :white ? 7 : 0
-        grid[i][j] = piece.new([i, j], self, color)
-      end
+    [:white, :black].each do |color|
+      fill_back_row(color)
+      fill_pawns(color)
     end
-
-    [1, 6].each do |i|
-      color = i == 1 ? :black : :white
-      8.times do |j|
-        grid[i][j] = Pawn.new([i, j], self, color)
-      end
-    end
-    
-    grid
   end
 
+  def fill_back_row(color)
+    pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
+    i = color == :white ? 7 : 0
+    pieces.each_with_index do |piece, j|
+      self[[i, j]] = piece.new([i, j], self, color)
+    end
+  end
+
+  def fill_pawns(color)
+    i = color == :white ? 6 : 1
+    8.times { |j| self[[i, j]] = Pawn.new([i, j], self, color) }
+  end
 end
