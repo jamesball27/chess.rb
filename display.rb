@@ -42,8 +42,7 @@ class Display
 end
 
 b = Board.new
-d = Display.new(b)
-d.render
+p b.in_check?(:white)
 # loop do
 #   d.render
 #   d.cursor.get_input

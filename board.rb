@@ -1,5 +1,5 @@
 require_relative 'pieces'
-
+require 'byebug'
 class Board
 
   attr_reader :grid
@@ -28,7 +28,32 @@ class Board
   end
 
   def in_bounds?(pos)
-    pos.all? { |n| n.between?(0, 7) }
+    pos.all? { |coord| coord.between?(0, 7) }
+  end
+
+  def checkmate?(color)
+    in_check?(color) && pieces_by_color(color).all? { |piece| piece.valid_moves.empty? }
+  end
+
+  def in_check?(color)
+    king = find_king(color)
+    opponent_color = color == :white ? :black : :white
+    opponent_pieces = pieces_by_color(opponent_color)
+    opponent_pieces.any? { |piece| piece.moves.include?(king) }
+  end
+
+  def find_king(color)
+    king = pieces_by_color(color).find { |piece| piece.is_a?(King) }
+    raise "King not found" unless king
+    king.pos
+  end
+
+  def all_pieces
+    grid.flatten.reject(&:empty?)
+  end
+
+  def pieces_by_color(color)
+    all_pieces.select { |piece| piece.color == color }
   end
 
   protected
@@ -40,6 +65,8 @@ class Board
       fill_back_row(color)
       fill_pawns(color)
     end
+
+    grid
   end
 
   def fill_back_row(color)

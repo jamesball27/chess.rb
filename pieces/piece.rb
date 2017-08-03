@@ -19,4 +19,7 @@ class Piece
     " #{symbol}  "
   end
 
+  def inspect
+    "#{self.class}, #{pos}, #{color}"
+  end
 end
