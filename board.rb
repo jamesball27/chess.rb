@@ -20,9 +20,12 @@ class Board
 
   def move_piece(start_pos, end_pos)
     piece = self[start_pos]
-    raise "There is no piece on selected position" unless piece
-    raise "Cannot move to selected position" if self[end_pos]
-    self[start_pos] = nil
+    raise "There is no piece on selected position" if piece.empty?
+    unless self[end_pos].empty? || self[end_pos].color != piece.color
+      raise "Cannot move to selected position"
+    end
+    
+    self[start_pos] = NullPiece.instance
     self[end_pos] = piece
     grid
   end
@@ -54,6 +57,18 @@ class Board
 
   def pieces_by_color(color)
     all_pieces.select { |piece| piece.color == color }
+  end
+
+  def dup
+    new_board = Board.new
+    new_board.grid.each_with_index do |row, i|
+      row.each_index do |j|
+        pos = [i, j]
+        piece = self[pos]
+        new_board[pos] = piece.class.new(pos, new_board, piece.color) unless piece.empty?
+      end
+    end
+    new_board
   end
 
   protected

@@ -22,8 +22,9 @@ class Pawn < Piece
 
   def forward_steps
     moves = []
-    one_step = [forward_dir, 0]
-    two_step = [2 * forward_dir, 0]
+    x, y = pos
+    one_step = [forward_dir + x, y]
+    two_step = [(2 * forward_dir) + x, y]
     moves << one_step if board.in_bounds?(one_step)
     moves << two_step if at_start_row?
     moves
