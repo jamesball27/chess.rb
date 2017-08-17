@@ -21,10 +21,18 @@ class Board
   def move_piece(start_pos, end_pos)
     piece = self[start_pos]
     raise "There is no piece on selected position" if piece.empty?
-    unless self[end_pos].empty? || self[end_pos].color != piece.color
-      raise "Cannot move to selected position"
+
+    if !piece.moves.include?(end_pos)
+      raise "Invalid move"
+    elsif !piece.valid_moves.include?(end_pos)
+      raise "Move would place you in check"
     end
-    
+
+    move_piece!(start_pos, end_pos) 
+  end
+
+  def move_piece!(start_pos, end_pos)
+    piece = self[start_pos]
     self[start_pos] = NullPiece.instance
     self[end_pos] = piece
     grid
