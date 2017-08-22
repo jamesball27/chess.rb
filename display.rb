@@ -26,6 +26,10 @@ class Display
     nil
   end
 
+  def reset!
+    @cursor = Cursor.new([0, 0], board)
+  end
+
   private
 
   def background_color(pos)

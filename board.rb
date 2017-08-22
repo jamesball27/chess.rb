@@ -18,11 +18,13 @@ class Board
     @grid[x][y] = val
   end
 
-  def move_piece(start_pos, end_pos)
+  def move_piece(color, start_pos, end_pos)
     piece = self[start_pos]
     raise "There is no piece on selected position" if piece.empty?
 
-    if !piece.moves.include?(end_pos)
+    if piece.color != color
+      raise "You cannot move your opponent's piece"
+    elsif !piece.moves.include?(end_pos)
       raise "Invalid move"
     elsif !piece.valid_moves.include?(end_pos)
       raise "Move would place you in check"

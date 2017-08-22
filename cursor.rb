@@ -82,7 +82,6 @@ class Cursor
   end
 
   def update_pos(diff)
-    return if selected
     x, y = cursor_pos
     dx, dy = diff
     new_pos = [x + dx, y + dy]
