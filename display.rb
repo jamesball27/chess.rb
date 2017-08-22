@@ -40,10 +40,3 @@ class Display
   end
 
 end
-
-b = Board.new
-p b.in_check?(:white)
-# loop do
-#   d.render
-#   d.cursor.get_input
-# end

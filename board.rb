@@ -1,5 +1,5 @@
 require_relative 'pieces'
-require 'byebug'
+
 class Board
 
   attr_reader :grid
@@ -28,7 +28,7 @@ class Board
       raise "Move would place you in check"
     end
 
-    move_piece!(start_pos, end_pos) 
+    move_piece!(start_pos, end_pos)
   end
 
   def move_piece!(start_pos, end_pos)
