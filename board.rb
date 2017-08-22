@@ -1,5 +1,5 @@
 require_relative 'pieces'
-
+require 'byebug'
 class Board
 
   attr_reader :grid
@@ -35,8 +35,9 @@ class Board
 
   def move_piece!(start_pos, end_pos)
     piece = self[start_pos]
-    self[start_pos] = NullPiece.instance
     self[end_pos] = piece
+    self[start_pos] = NullPiece.instance
+    piece.pos = end_pos
     grid
   end
 

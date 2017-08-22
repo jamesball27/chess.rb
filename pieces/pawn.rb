@@ -10,8 +10,6 @@ class Pawn < Piece
     "♟".colorize(color)
   end
 
-  protected
-
   def at_start_row?
     (color == :white && pos.first == 6) || (color == :black && pos.first == 1)
   end
@@ -31,8 +29,12 @@ class Pawn < Piece
   end
 
   def side_attacks
-    [[forward_dir, -1], [forward_dir, 1]].select do |pos|
-      board.in_bounds?(pos) && (board[pos].color != color)
+    x, y = pos
+
+    side_moves = [[x + forward_dir, y - 1], [x + forward_dir, y + 1]]
+
+    side_moves.select do |pos|
+      board.in_bounds?(pos) && !board[pos].empty? && board[pos].color != color
     end
   end
 
