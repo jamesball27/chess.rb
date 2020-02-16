@@ -1,7 +1,6 @@
-require_relative 'pieces'
-require 'byebug'
-class Board
+require_relative '../pieces/index'
 
+class Board
   attr_reader :grid
 
   def initialize
@@ -20,14 +19,14 @@ class Board
 
   def move_piece(color, start_pos, end_pos)
     piece = self[start_pos]
-    raise "There is no piece on selected position" if piece.empty?
+    raise 'There is no piece on selected position' if piece.empty?
 
     if piece.color != color
       raise "You cannot move your opponent's piece"
     elsif !piece.moves.include?(end_pos)
-      raise "Invalid move"
+      raise 'Invalid move'
     elsif !piece.valid_moves.include?(end_pos)
-      raise "Move would place you in check"
+      raise 'Move would place you in check'
     end
 
     move_piece!(start_pos, end_pos)
@@ -58,7 +57,8 @@ class Board
 
   def find_king(color)
     king = pieces_by_color(color).find { |piece| piece.is_a?(King) }
-    raise "King not found" unless king
+    raise 'King not found' unless king
+
     king.pos
   end
 
@@ -76,7 +76,9 @@ class Board
       row.each_index do |j|
         pos = [i, j]
         piece = self[pos]
-        new_board[pos] = piece.class.new(pos, new_board, piece.color) unless piece.empty?
+        unless piece.empty?
+          new_board[pos] = piece.class.new(pos, new_board, color: piece.color)
+        end
       end
     end
     new_board
@@ -87,7 +89,7 @@ class Board
   def make_starting_grid
     @grid = Array.new(8) { Array.new(8, NullPiece.instance) }
 
-    [:white, :black].each do |color|
+    %i(white black).each do |color|
       fill_back_row(color)
       fill_pawns(color)
     end
@@ -99,12 +101,12 @@ class Board
     pieces = [Rook, Knight, Bishop, Queen, King, Bishop, Knight, Rook]
     i = color == :white ? 7 : 0
     pieces.each_with_index do |piece, j|
-      self[[i, j]] = piece.new([i, j], self, color)
+      self[[i, j]] = piece.new([i, j], self, color: color)
     end
   end
 
   def fill_pawns(color)
     i = color == :white ? 6 : 1
-    8.times { |j| self[[i, j]] = Pawn.new([i, j], self, color) }
+    8.times { |j| self[[i, j]] = Pawn.new([i, j], self, color: color) }
   end
 end

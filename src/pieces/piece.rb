@@ -1,10 +1,8 @@
-require 'byebug'
 class Piece
-
   attr_accessor :pos
   attr_reader :board, :color
 
-  def initialize(pos, board, color = nil)
+  def initialize(pos, board, color: nil)
     @pos = pos
     @board = board
     @color = color

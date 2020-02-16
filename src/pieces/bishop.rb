@@ -1,4 +1,4 @@
-require_relative 'slideable'
+require_relative 'modules/slideable'
 require_relative 'piece'
 
 class Bishop < Piece
@@ -9,7 +9,6 @@ class Bishop < Piece
   end
 
   def symbol
-    "♝".colorize(color)
+    '♝'.colorize(color)
   end
-
 end

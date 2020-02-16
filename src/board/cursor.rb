@@ -1,15 +1,15 @@
 require 'io/console'
 
 KEYMAP = {
-  " " => :space,
-  "h" => :left,
-  "j" => :down,
-  "k" => :up,
-  "l" => :right,
-  "w" => :up,
-  "a" => :left,
-  "s" => :down,
-  "d" => :right,
+  ' ' => :space,
+  'h' => :left,
+  'j' => :down,
+  'k' => :up,
+  'l' => :right,
+  'w' => :up,
+  'a' => :left,
+  's' => :down,
+  'd' => :right,
   "\t" => :tab,
   "\r" => :return,
   "\n" => :newline,
@@ -21,17 +21,16 @@ KEYMAP = {
   "\177" => :backspace,
   "\004" => :delete,
   "\u0003" => :ctrl_c,
-}
+}.freeze
 
 MOVES = {
   left: [0, -1],
   right: [0, 1],
   up: [-1, 0],
-  down: [1, 0]
-}
+  down: [1, 0],
+}.freeze
 
 class Cursor
-
   attr_reader :cursor_pos, :board
 
   def initialize(cursor_pos, board)
@@ -58,9 +57,17 @@ class Cursor
     STDIN.raw!
 
     input = STDIN.getc.chr
-    if input == "\e" then
-      input << STDIN.read_nonblock(3) rescue nil
-      input << STDIN.read_nonblock(2) rescue nil
+    if input == "\e"
+      begin
+        input << STDIN.read_nonblock(3)
+      rescue StandardError
+        nil
+      end
+      begin
+        input << STDIN.read_nonblock(2)
+      rescue StandardError
+        nil
+      end
     end
 
     STDIN.echo = true
@@ -92,5 +99,4 @@ class Cursor
   def toggle_selected!
     self.selected = !selected
   end
-
 end

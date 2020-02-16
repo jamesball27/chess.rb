@@ -1,7 +1,6 @@
 module Slideable
-
-  PERPENDICULAR_DELTAS = [[0, -1], [0, 1], [-1, 0], [1, 0]]
-  DIAGONAL_DELTAS = [[-1, -1], [-1, 1], [1, -1], [1, 1]]
+  PERPENDICULAR_DELTAS = [[0, -1], [0, 1], [-1, 0], [1, 0]].freeze
+  DIAGONAL_DELTAS = [[-1, -1], [-1, 1], [1, -1], [1, 1]].freeze
 
   def moves
     moves = []
@@ -38,5 +37,4 @@ module Slideable
 
     moves
   end
-
 end

@@ -1,13 +1,12 @@
 require_relative 'piece'
 
 class Pawn < Piece
-
   def moves
     forward_steps + side_attacks
   end
 
   def symbol
-    "♟".colorize(color)
+    '♟'.colorize(color)
   end
 
   def at_start_row?
@@ -37,5 +36,4 @@ class Pawn < Piece
       board.in_bounds?(pos) && !board[pos].empty? && board[pos].color != color
     end
   end
-
 end

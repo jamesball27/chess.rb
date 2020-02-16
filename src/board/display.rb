@@ -3,7 +3,6 @@ require_relative 'cursor'
 require_relative 'board'
 
 class Display
-
   attr_reader :board, :cursor
 
   def initialize(board)
@@ -12,9 +11,9 @@ class Display
   end
 
   def render
-    system("clear")
+    system('clear')
     (0..7).each do |i|
-      row = ""
+      row = ''
       (0..7).each do |j|
         pos = [i, j]
         square = board[pos].to_s.colorize(background: background_color(pos))
@@ -42,5 +41,4 @@ class Display
 
     color
   end
-
 end

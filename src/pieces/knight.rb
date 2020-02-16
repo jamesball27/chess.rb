@@ -1,8 +1,7 @@
 require_relative 'piece'
-require_relative 'stepable'
+require_relative 'modules/stepable'
 
 class Knight < Piece
-
   include Stepable
 
   def move_deltas
@@ -14,12 +13,11 @@ class Knight < Piece
       [1, -2],
       [1, 2],
       [2, -1],
-      [2, 1]
+      [2, 1],
     ]
   end
 
   def symbol
-    "♞".colorize(color)
+    '♞'.colorize(color)
   end
-
 end

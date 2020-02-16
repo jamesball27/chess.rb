@@ -1,16 +1,18 @@
-require_relative 'board'
-require_relative 'display'
-require_relative 'human_player'
+# frozen_string_literal: true
+
+require_relative 'board/board'
+require_relative 'board/display'
+require_relative 'players/human_player'
 
 class Game
-
   attr_reader :player_1, :player_2, :board
   attr_accessor :current_player
 
   def initialize
     @board = Board.new
     @display = Display.new(@board)
-    @player_1, @player_2 = HumanPlayer.new(:white, @display), HumanPlayer.new(:black, @display)
+    @player_1 = HumanPlayer.new(:white, @display)
+    @player_2 = HumanPlayer.new(:black, @display)
     @current_player = player_1
   end
 
@@ -36,7 +38,4 @@ class Game
   def switch_players!
     self.current_player = current_player == player_1 ? player_2 : player_1
   end
-
 end
-
-Game.new.play

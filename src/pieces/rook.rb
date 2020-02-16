@@ -1,8 +1,7 @@
 require_relative 'piece'
-require_relative 'slideable'
+require_relative 'modules/slideable'
 
 class Rook < Piece
-
   include Slideable
 
   def move_deltas
@@ -10,7 +9,6 @@ class Rook < Piece
   end
 
   def symbol
-    "♜".colorize(color)
+    '♜'.colorize(color)
   end
-
 end
