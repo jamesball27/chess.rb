@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require_relative 'board/board'
 require_relative 'board/display'
 require_relative 'players/human_player'
